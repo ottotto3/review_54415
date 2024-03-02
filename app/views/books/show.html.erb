@@ -40,14 +40,14 @@
       </table>
       <div>
           <% @book.book_comments.each do |book_comment| %>
-          <p class = "row">
+          <p class = "d-flex align-items-center">
             <%= link_to(book_comment.user) do %>
               <%= image_tag book_comment.user.get_profile_image, size:"100x100" %><br>
               <%= book_comment.user.name %>
             <% end %>
             <%= book_comment.comment %>
             <% if book_comment.user == current_user %>
-              <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), class: "btn btn-danger", method: :delete %>
+              <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), class: "btn btn-danger h-25", method: :delete %>
             <% end %>
           </p>
           <% end %>
