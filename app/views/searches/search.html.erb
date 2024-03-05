@@ -1,0 +1,15 @@
+<%= form_tag({ controller: "searches", action: "search" }, method: "get") do %>
+  <%= select_tag :option, options_for_select(["Book", "User"], @selected_option) %>
+  <%= select_tag :option, options_for_select({ '完全一致' => 'exact', '部分一致' => 'partial', '前方一致'=>'forward', '後方一致'=>'backward'}, @selected_option) %>
+  <%= text_field_tag :keyword, params[:keyword] %>
+  <%= submit_tag "検索" %>
+<% end %>
+
+<% if @results.present? %>
+  <h2>検索結果</h2>
+  <% @results.each do |item| %>
+    <p><%= item.name %></p>
+  <% end %>
+<% else %>
+  <p>検索結果がありません。</p>
+<% end %>
