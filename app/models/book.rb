@@ -2,14 +2,14 @@ class Book < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-  
+
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
-  
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
-  end 
-  
+  end
+
   def self.search(method,keyword)
     if method == "exact"
       Book.where(title: keyword)
@@ -21,5 +21,5 @@ class Book < ApplicationRecord
       Book.where('title LIKE ?','%'+ keyword)
     end
   end
-
+#インデントが揃っていて見やすくなっています。
 end

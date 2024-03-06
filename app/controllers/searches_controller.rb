@@ -13,5 +13,5 @@ class SearchesController < ApplicationController
       @results = Book.search(@method, @keyword)
     end
   end
-  
+  #インデントが揃っていて見やすくなっています。コードに対しての説明書きがあり見やすいです。
 end
