@@ -1,29 +1,17 @@
 class SearchesController < ApplicationController
+  before_action :authenticate_user!
+  
   def search
-    @selected_option = params[:option]
-    @results = search_items(params[:option],params[:keyword])
-  end
-  
-  private
-  
-  def search_items(option, keyword)
-    case option
-    # 完全一致
-    when "exact" 
-      Book.where(title: keyword)
-      User.where(name: keyword)
-    # 部分一致
-    when "partial"
-      Book.where("title LIKE ?", "%#{keyword}%")
-      User.where("name LIKE ?", "%#{keyword}%")
-    # 前方一致
-    when "forward"
-      Book.where("title LIKE ?", "#{keyword}%")
-      User.where("name LIKE ?", "#{keyword}%")
-    # 後方一致
-    when "backward"
-      Book.where("title LIKE ?", "%#{keyword}")
-      User.where("name LIKE ?", "%#{keyword}")
+    @model = params[:model]
+    @keyword = params[:keyword]
+    @method = params[:method]
+    
+    # 選択したモデルに応じて検索を実行
+    if @model  == "user"
+      @results = User.search(@method, @keyword)
+    else
+      @results = Book.search(@method, @keyword)
     end
   end
+  
 end

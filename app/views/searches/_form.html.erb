@@ -1,0 +1,15 @@
+<div class='container mb-2'>
+  <div class='row'>
+  	<div class='mx-auto'>
+  	  <% if user_signed_in? %>
+      <%= form_with url: searches_path, method: "get", local: true do |f| %>
+        <%= f.text_field :keyword %>
+        <%= f.select :model, options_for_select({ 'Book' => 'book', 'User' => 'user' }) %>
+        <%= f.select :method, options_for_select({ '完全一致' => 'exact', '部分一致' => 'partial', '前方一致' => 'forward', '後方一致' => 'backward' }) %>
+        <%= submit_tag "検索" %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

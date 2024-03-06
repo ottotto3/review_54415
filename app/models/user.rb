@@ -29,4 +29,17 @@ class User < ApplicationRecord
     # 今自分(引数のuser)がフォローしようとしているユーザー(レシーバー)がフォローされているユーザー(つまりpassive)の中から、引数に渡されたユーザー(自分)がいるかどうかを調べる
     passive_relationships.find_by(following_id: user.id).present?
   end
+  
+  def self.search(method,keyword)
+    if method == "exact"
+      User.where(name: keyword)
+    elsif method == "partial"
+      User.where('name LIKE ?','%'+ keyword + '%')
+    elsif method == "forward"
+      User.where('name LIKE ?', keyword + '%')
+    elsif method == "backward"
+      User.where('name LIKE ?','%'+ keyword)
+    end
+  end
+  
 end
